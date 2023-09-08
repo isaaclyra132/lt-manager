@@ -1,1 +1,98 @@
-<p class="bg-blue-600 flex flex-1">login works!</p>
+<div class="flex flex-1 h-screen">
+  <div class="flex flex-column w-12 sm:w-8 fadein animation-duration-500">
+    <div class="flex justify-content-between p-4 text-blue-700">
+      <div class="font-bold text-2xl md:text-4xl">
+        <span>LT<span class="text-green-400">.</span>Manager </span>
+      </div>
+      <div class="flex align-items-center">
+        <span class="hidden lg:flex text-gray-500 font-bold"
+          >Ainda não possui cadastro?</span
+        >
+        <button
+          pButton
+          label="Cadastrar-se"
+          class="p-button-success p-button-text ml-1"
+          [routerLink]="['/register']"
+        ></button>
+      </div>
+    </div>
+    <div class="p-5 flex flex-1 justify-content-center align-items-center">
+      <div
+        class="flex flex-column w-12 lg:w-6 bg-white border-round-md p-4 xl:p-6 shadow-1"
+      >
+        <strong class="text-2xl sm:text-4xl text-blue-700 text-center"
+          >Login no Sistema</strong
+        >
+        <div class="p-fluid mt-4 md:mt-5 font-bold">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div>
+              <label for="email" class="text-xl text-gray-600 font-bold"
+                >E-mail</label
+              >
+              <input
+                pInputText
+                type="text"
+                id="email"
+                class="p-3"
+                formControlName="email"
+                placeholder="Insira seu e-mail"
+              />
+              <div *ngIf="loginForm.invalid && submitted">
+                <small
+                  class="p-error"
+                  *ngIf="loginForm.controls['email'].errors?.['required']"
+                  >Insira seu e-mail</small
+                >
+                <small
+                  class="p-error"
+                  *ngIf="loginForm.controls['email'].errors?.['email']"
+                  >Insira um e-mail válido</small
+                >
+              </div>
+            </div>
+            <div class="mt-4 md:mt-5">
+              <label for="password" class="text-xl text-gray-600 font-bold"
+                >Senha</label
+              >
+              <input
+                pPassword
+                id="password"
+                type="password"
+                [feedback]="false"
+                class="p-3"
+                formControlName="password"
+                placeholder="Insira sua senha"
+              />
+              <div *ngIf="loginForm.invalid && submitted">
+                <small
+                  class="p-error"
+                  *ngIf="loginForm.controls['password'].errors?.['required']"
+                  >Insira a senha</small
+                >
+              </div>
+            </div>
+            <button
+              pButton
+              pRipple
+              type="submit"
+              label="Entrar"
+              icon="pi pi-sign-in"
+              class="w-12 mt-4 md:mt-5 p-2 p-button-lg p-3"
+              [loading]="loading"
+            ></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="h-full w-4 bg-yellow-600 overflow-hidden hidden sm:flex sticky top-0 right-0"
+  >
+    <img
+      src="assets/img/cover.png"
+      alt="imagem cover de login"
+      class="h-full"
+      style="transform: translateX(-7%)"
+    />
+  </div>
+</div>
