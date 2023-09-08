@@ -1,1 +1,152 @@
-<p>register works!</p>
+<div class="flex flex-1 h-screen">
+  <div class="flex flex-column w-12 sm:w-8 fadein animation-duration-500">
+    <div class="flex justify-content-between p-4 text-blue-700">
+      <div class="font-bold text-2xl md:text-4xl">
+        <span>LT<span class="text-green-400">.</span>Manager </span>
+      </div>
+      <div class="flex align-items-center">
+        <span class="hidden lg:flex text-gray-500 font-bold"
+          >Já possui cadastro?</span
+        >
+        <button
+          pButton
+          label="Fazer Login"
+          class="p-button-success p-button-text ml-1"
+          [routerLink]="['/login']"
+        ></button>
+      </div>
+    </div>
+    <div class="p-3 flex flex-1 justify-content-center align-items-center">
+      <div
+        class="flex flex-column w-12 lg:w-11 bg-white border-round-md p-4 xl:p-6 shadow-1"
+      >
+        <p-divider align="center" class="text-blue-700">
+          <span class="text-2xl md:text-4xl font-bold"
+            ><i class="pi pi-user-plus mr-3 text-2xl md:text-4xl"></i
+            >Cadastro</span
+          >
+        </p-divider>
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="p-fluid grid mt-4 font-bold">
+            <div class="col-12 md:col-6">
+              <label for="name" class="text-xl text-gray-600 font-bold"
+                >Nome</label
+              >
+              <input
+                pInputText
+                type="text"
+                id="name"
+                class="p-3"
+                formControlName="name"
+                placeholder="Insira seu nome"
+              />
+              <div *ngIf="registerForm.invalid && submitted">
+                <small
+                  class="p-error"
+                  *ngIf="registerForm.controls['name'].errors?.['required']"
+                  >Insira seu nome</small
+                >
+              </div>
+            </div>
+
+            <div class="col-12 md:col-6">
+              <label for="email" class="text-xl text-gray-600 font-bold"
+                >E-mail</label
+              >
+              <input
+                pInputText
+                id="email"
+                type="text"
+                class="p-3"
+                formControlName="email"
+                placeholder="Insira seu e-mail"
+              />
+              <div *ngIf="registerForm.invalid && submitted">
+                <small
+                  class="p-error"
+                  *ngIf="registerForm.controls['email'].errors?.['required']"
+                  >Insira seu e-mail</small
+                >
+                <small
+                  class="p-error"
+                  *ngIf="registerForm.controls['email'].errors?.['email']"
+                  >Insira um e-mail válido</small
+                >
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <label for="password" class="text-xl text-gray-600 font-bold"
+                >Senha</label
+              >
+              <input
+                pPassword
+                id="password"
+                type="password"
+                [feedback]="false"
+                class="p-3"
+                formControlName="password"
+                placeholder="Insira uma senha de 8 caracteres"
+              />
+              <div *ngIf="registerForm.invalid && submitted">
+                <small
+                  class="p-error"
+                  *ngIf="registerForm.controls['password'].errors?.['required']"
+                  >Insira uma senha</small
+                >
+                <small
+                  class="p-error"
+                  *ngIf="registerForm.controls['password'].errors?.['minlength']"
+                  >A senha deve possuir no mínimo 8 caracteres</small
+                >
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <label
+                for="confirmPassword"
+                class="text-xl text-gray-600 font-bold"
+                >Confirmar senha</label
+              >
+              <input
+                pPassword
+                id="confirmPassword"
+                type="password"
+                [feedback]="false"
+                class="p-3"
+                formControlName="confirmPassword"
+                placeholder="Confirme a senha novamente"
+              />
+              <div
+                *ngIf="
+                  (submitted || registerForm.get('confirmPassword')?.touched) &&
+                  registerForm.hasError('differentPasswords')
+                "
+              >
+                <small class="p-error">As senhas não coincidem.</small>
+              </div>
+            </div>
+            <div class="w-12 flex justify-content-end">
+              <button
+                pButton
+                pRipple
+                type="submit"
+                label="Cadastrar"
+                class="md:w-4 mt-4 md:mt-5 p-2 p-button-lg p-3"
+                [loading]="loading"
+              ></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    class="h-full w-4 bg-yellow-600 overflow-hidden hidden sm:flex sticky top-0 right-0"
+  >
+    <img
+      src="assets/img/cover.png"
+      alt="imagem cover de login"
+      class="h-full"
+      style="transform: translateX(-7%)"
+    />
+  </div>
+</div>

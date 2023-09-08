@@ -1,10 +1,78 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
 
+  submitted: boolean = false;
+  loading: boolean = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit() {
+    this.createRegisterForm();
+  }
+
+  createRegisterForm() {
+    this.registerForm = this.formBuilder.group(
+      {
+        name: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
+        confirmPassword: new FormControl('', Validators.required),
+      },
+      { validator: this.comparePasswords }
+    );
+  }
+
+  comparePasswords(group: FormGroup) {
+    let password = group.get('password')?.value;
+    let confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { differentPasswords: true };
+  }
+
+  register() {
+    this.submitted = true;
+    if (this.registerForm.valid) {
+      // TODO - Chamar o service de usuario para criar novo usuario no sistema
+      this.showSuccessToast();
+    } else {
+      this.showErrorToast();
+    }
+  }
+
+  showErrorToast() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: 'Preencha o formulário corretamente',
+      life: 3000,
+    });
+  }
+
+  showSuccessToast() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Cadastro bem-sucedido',
+      detail: 'Agora você já pode realizar o login no sistema',
+      life: 3000,
+    });
+  }
 }
