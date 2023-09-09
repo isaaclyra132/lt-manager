@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { Error404Component } from './pages/error404/error404.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
+import { NewTaskComponent } from './pages/new-task/new-task.component';
+import { ArchivedComponent } from './pages/archived/archived.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TasksComponent,
+  },
+  {
+    path: 'new-task',
+    component: NewTaskComponent,
+  },
+  {
+    path: 'archived',
+    component: ArchivedComponent,
   },
   {
     path: '**',

@@ -24,6 +24,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { MessageService } from 'primeng/api';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NewTaskComponent } from './pages/new-task/new-task.component';
+import { ArchivedComponent } from './pages/archived/archived.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { HeaderComponent } from './components/header/header.component';
     RegisterComponent,
     TasksComponent,
     HeaderComponent,
+    NewTaskComponent,
+    ArchivedComponent,
   ],
   imports: [
     BrowserModule,
