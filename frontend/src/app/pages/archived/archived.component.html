@@ -1,0 +1,62 @@
+<div class="flex flex-1 h-screen">
+  <div class="flex flex-column w-12 sm:w-12 fadein animation-duration-500">
+    <app-header></app-header>
+    <div class="p-3 flex flex-1 flex-wrap justify-content-center">
+      <div
+        class="flex flex-column w-12 lg:w-11 bg-white border-round-md p-4 xl:p-6 shadow-1"
+      >
+        <div class="flex justify-content-start">
+          <button
+            pButton
+            pRipple
+            label="Voltar para Tasks"
+            icon="pi pi-arrow-left"
+            class="p-button-secondary flex w-8 md:w-2 p-3 md:p-3 text-lg"
+            [routerLink]="['/tasks']"
+          ></button>
+        </div>
+        <div class="flex gap-2 flex-wrap w-full justify-content-between mt-3">
+          <div
+            class="w-full max-w-400 min-h-200"
+            *ngFor="let task of archivedTasks; let i = index"
+          >
+            <div
+              class="border-round-md shadow-1 w-full h-full min-h-200 max-h-400 flex-1 flex flex-column"
+              [style]="{ width: '25rem' }"
+            >
+              <div #header>
+                <div class="mt-3 pt-1 px-4 h-full">
+                  <div
+                    class="text-2xl font-bold text-green-500 flex justify-content-between align-items-center"
+                  >
+                    <span>{{ task.title }} </span>
+                  </div>
+                  <div class="text-base font-normal text-gray-400">
+                    <span>
+                      Última atualização em:
+                      {{ task.updatedAt | date : "dd/MM/yy" }}</span
+                    >
+                  </div>
+                  <div class="text-base font-normal text-gray-400">
+                    <span>
+                      Status:
+                      {{ task.status | uppercase }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div #body class="flex flex-1 mt-2 px-4 pb-4 flex-column">
+                <div class="flex flex-1">
+                  <span class="justify text-overflow-clip">
+                    <strong class="text-green-500">Descrição: </strong>
+                    {{ task.description }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
