@@ -1,0 +1,193 @@
+<div class="flex flex-1 h-screen">
+  <div class="flex flex-column w-12 sm:w-12 fadein animation-duration-500">
+    <app-header></app-header>
+    <div class="p-3 flex flex-1 flex-wrap justify-content-center">
+      <div
+        class="flex flex-column w-12 lg:w-11 bg-white border-round-md p-4 xl:p-6 shadow-1"
+      >
+        <div class="flex justify-content-end">
+          <button
+            pButton
+            pRipple
+            label="Nova Task"
+            icon="pi pi-plus"
+            class="p-button-success flex w-8 md:w-2 p-3 md:p-3 text-lg"
+            [routerLink]="['/new-task']"
+          ></button>
+        </div>
+        <div class="flex gap-2 flex-wrap w-full justify-content-between mt-3">
+          <div
+            class="w-full max-w-400 min-h-200"
+            *ngFor="let task of userTasks; let i = index"
+          >
+            <div
+              class="border-round-md shadow-1 w-full h-full min-h-200 max-h-400 flex-1 flex flex-column"
+              [style]="{ width: '25rem' }"
+            >
+              <div #header class="">
+                <div class="flex justify-content-end pt-3 pr-3">
+                  <button
+                    pButton
+                    pRipple
+                    label="Arquivar"
+                    icon="pi pi-trash"
+                    class="p-button-sm p-button-secondary"
+                    (click)="archiveTask()"
+                  ></button>
+                </div>
+                <div class="pt-1 px-4 h-full">
+                  <div
+                    class="text-2xl font-bold text-green-500 flex justify-content-between align-items-center"
+                  >
+                    <span>{{ task.title }} </span>
+                  </div>
+                  <div class="text-base font-normal text-gray-400">
+                    <span>
+                      Data de criação:
+                      {{ task.createdAt | date : "dd/MM/yy" }}</span
+                    >
+                  </div>
+                  <div class="text-base font-normal text-gray-400">
+                    <span>
+                      Status:
+
+                      {{ task.status | uppercase }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div #body class="flex flex-1 mt-2 px-4 pb-4 flex-column">
+                <div class="flex flex-1">
+                  <span class="justify text-overflow-clip">
+                    <strong class="text-green-500">Descrição: </strong>
+                    {{ task.description }}
+                  </span>
+                </div>
+                <div
+                  class="w-full p-fluid flex justify-content-end align-items-end gap-2 mt-2"
+                >
+                  <button
+                    pButton
+                    pRipple
+                    label="Editar"
+                    icon="pi pi-pencil"
+                    [disabled]="isFinished(task.status | uppercase)"
+                    (click)="showEditTaskDialog(i, task)"
+                    class="p-button-warning p-button-sm"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    label="Finalizar"
+                    icon="pi pi-check"
+                    [disabled]="isFinished(task.status | uppercase)"
+                    class="p-button-success p-button-sm"
+                    (click)="finishTask()"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog #cd [style]="{ width: '450px' }" [closable]="false">
+  <ng-template pTemplate="footer">
+    <button
+      type="button"
+      pButton
+      pRipple
+      icon="pi pi-times"
+      class="p-button-raised p-button-secondary"
+      label="Cancelar"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      type="button"
+      pButton
+      pRipple
+      icon="pi pi-check"
+      class="p-button-raised p-button-success"
+      label="Confirmar"
+      (click)="cd.accept()"
+    ></button>
+  </ng-template>
+</p-confirmDialog>
+
+<p-dialog
+  [(visible)]="editTaskDialog"
+  [style]="{ width: '35vw' }"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [modal]="true"
+  styleClass="p-fluid text-green-500"
+  [draggable]="false"
+>
+  <ng-template pTemplate="header">
+    <span class="text-xl text-green-500 font-bold">
+      Editar informações da task</span
+    >
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="grid p-fluid font-bold text-green-500">
+      <div class="col-12">
+        <label for="title">Título</label>
+        <input
+          type="text"
+          pInputText
+          id="title"
+          placeholder="Digite o nome do beneficiário"
+          [(ngModel)]="task.title"
+          class="mt-2"
+          required
+        />
+      </div>
+      <div class="col-12">
+        <label for="status">Status</label>
+        <p-selectButton
+          id="status"
+          [options]="statusTypes"
+          [(ngModel)]="task.status"
+          styleClass="mt-2"
+          optionLabel="name"
+          optionValue="name"
+          appendTo="body"
+          [required]="true"
+        ></p-selectButton>
+      </div>
+      <div class="col-12">
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          rows="7"
+          cols="30"
+          pInputTextarea
+          [autoResize]="true"
+          [(ngModel)]="task.description"
+          appendTo="body"
+        ></textarea>
+      </div>
+    </div>
+    <div class="flex justify-content-end mt-3 gap-2">
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-secondary"
+        (click)="hideEditTaskDialog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="submit"
+        label="Atualizar"
+        icon="pi pi-check"
+        class="p-button-warning"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>

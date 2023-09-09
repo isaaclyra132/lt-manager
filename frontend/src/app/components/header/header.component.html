@@ -1,0 +1,49 @@
+<div class="flex justify-content-between align-items-center p-4 text-blue-700">
+  <div>
+    <a routerLink="/tasks" class="font-bold text-2xl md:text-4xl">
+      <span>LT<span class="text-green-400">.</span>Manager </span>
+    </a>
+  </div>
+  <div class="flex text-green-500 font-bold">
+    <a
+      routerLink="/tasks"
+      class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
+      routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
+      [routerLinkActiveOptions]="{ exact: true }"
+      title="tasks"
+    >
+      <i class="pi pi-check lg:text-xl"></i>
+      <span class="hidden md:inline">Minhas Tasks</span>
+    </a>
+    <a
+      routerLink="/archived"
+      class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
+      routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
+      [routerLinkActiveOptions]="{ exact: true }"
+      title="archived"
+    >
+      <i class="pi pi-trash lg:text-xl"></i>
+      <span class="hidden md:inline">Tasks Arquivadas</span>
+    </a>
+  </div>
+  <div class="flex justify-content-between align-items-center w-3">
+    <div class="flex flex-column">
+      <span class="hidden lg:flex text-green-500 font-bold text-lg"
+        >Fulaninho da silva</span
+      >
+      <span class="hidden lg:flex text-gray-500 font-bold text-sm"
+        >fulaninho@gmail.com</span
+      >
+    </div>
+    <!--
+  <button *ngIf="isMobile" class="btn btn-primary d-none d-md-block">
+    Meu Botão
+  </button> -->
+    <button
+      pButton
+      label="Sair"
+      class="p-button-danger w-12 md:w-4"
+      [routerLink]="['/login']"
+    ></button>
+  </div>
+</div>
