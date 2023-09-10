@@ -22,13 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class WebSecurityConfig {
+
     @Autowired
     private final JWTFilterToken jwtAuthenticationFilter;
     @Autowired
     private final UserDetailsServiceImpl userService;
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
 
     public WebSecurityConfig(JWTFilterToken jwtAuthenticationFilter, UserDetailsServiceImpl userService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
@@ -37,7 +35,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http.csrf(AbstractHttpConfigurer::disable).cors().and()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/lt/auth/login").permitAll()

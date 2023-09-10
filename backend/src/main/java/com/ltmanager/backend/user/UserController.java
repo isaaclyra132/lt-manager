@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8062")
 @RestController
 @RequestMapping( "/api/lt")
 public class UserController {
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    UserDTO newCandidate(@RequestBody UserDTO entity) {
+    UserDTO newUser(@RequestBody UserDTO entity) {
         return service.saveOrUpdate(entity);
     }
 
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    void deleteCandidate(@PathVariable UUID id) {
+    void deleteUser(@PathVariable UUID id) {
         service.deleteById(id);
     }
 
