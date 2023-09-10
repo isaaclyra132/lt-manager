@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { ArchivedComponent } from './pages/archived/archived.component';
+import { authGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -24,14 +25,17 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TasksComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'new-task',
     component: NewTaskComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'archived',
     component: ArchivedComponent,
+    canActivate: [authGuard],
   },
   {
     path: '**',

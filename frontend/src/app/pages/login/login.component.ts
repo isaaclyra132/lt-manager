@@ -6,7 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private messageService: MessageService,
+    private authService: AuthService,
+    private cookieService: CookieService,
     private router: Router
   ) {}
 
@@ -40,12 +44,30 @@ export class LoginComponent implements OnInit {
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
-      // TODO - Chamar o service de autenticacao com as credenciais inseridas
-      this.showSuccessLoginToast();
-      this.router.navigate(['tasks']);
-    } else {
-      this.showFailedLoginToast();
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (res) => {
+          this.cookieService.set('AUTH-TOKEN', res.token, {
+            expires: this.createExpirationDate(),
+            secure: true,
+          });
+          this.loading = true;
+          this.showSuccessLoginToast();
+          this.router.navigate(['tasks']);
+        },
+        error: (err) => {
+          this.showFailedLoginToast();
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
     }
+  }
+
+  createExpirationDate(): Date {
+    const expirationDate: Date = new Date();
+    expirationDate.setSeconds(expirationDate.getSeconds() + 7200);
+    return expirationDate;
   }
 
   showFailedLoginToast() {

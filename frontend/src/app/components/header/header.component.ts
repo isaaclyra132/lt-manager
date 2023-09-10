@@ -1,13 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  constructor(private deviceDetectorService: DeviceDetectorService) {}
+export class HeaderComponent implements OnInit {
+  currentUser: any;
+
+  constructor(
+    private deviceDetectorService: DeviceDetectorService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    this.currentUser = this.authService.getCurrentUser();
+  }
 
   get isMobile() {
     return this.deviceDetectorService.isMobile();

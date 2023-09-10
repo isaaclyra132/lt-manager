@@ -5,7 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +22,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -51,8 +55,18 @@ export class RegisterComponent implements OnInit {
   register() {
     this.submitted = true;
     if (this.registerForm.valid) {
+      this.loading = true;
       // TODO - Chamar o service de usuario para criar novo usuario no sistema
-      this.showSuccessToast();
+      this.userService.register(this.registerForm.value).subscribe({
+        next: (res) => {
+          this.showSuccessToast();
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {},
+        complete: () => {
+          this.loading = false;
+        },
+      });
     } else {
       this.showErrorToast();
     }

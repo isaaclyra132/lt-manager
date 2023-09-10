@@ -16,6 +16,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { Error404Component } from './pages/error404/error404.component';
@@ -26,6 +27,8 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { ArchivedComponent } from './pages/archived/archived.component';
+import { AuthInterceptor } from './shared/interceptors/authconfig.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -56,8 +59,18 @@ import { ArchivedComponent } from './pages/archived/archived.component';
     BrowserAnimationsModule,
     SelectButtonModule,
     InputTextareaModule,
+    HttpClientModule,
   ],
-  providers: [MessageService, DeviceDetectorService],
+  providers: [
+    MessageService,
+    DeviceDetectorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    CookieService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -28,12 +28,12 @@
   </div>
   <div class="flex justify-content-between align-items-center w-3">
     <div class="flex flex-column">
-      <span class="hidden lg:flex text-green-500 font-bold text-lg"
-        >Fulaninho da silva</span
-      >
-      <span class="hidden lg:flex text-gray-500 font-bold text-sm"
-        >fulaninho@gmail.com</span
-      >
+      <span class="hidden lg:flex text-green-500 font-bold text-lg">{{
+        currentUser.name | uppercase
+      }}</span>
+      <span class="hidden lg:flex text-gray-500 font-bold text-sm">{{
+        currentUser.sub
+      }}</span>
     </div>
     <!--
   <button *ngIf="isMobile" class="btn btn-primary d-none d-md-block">
