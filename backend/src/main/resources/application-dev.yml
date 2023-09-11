@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: ltuser
+    password: ltsecret123
+    url: jdbc:postgresql://lt-postgres-db:5432/lt-database
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        format_sql: true
+    # Hibernate ddl auto (create, create-drop, validate, update)
+    hibernate:
+      ddl-auto: update
+    show-sql: false
