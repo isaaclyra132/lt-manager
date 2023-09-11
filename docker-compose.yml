@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  lt-frontend:
+    build:
+      context: ./frontend
+    container_name: lt-nginx
+    ports:
+      - "80:80"
+    networks:
+      - lt-network
+    depends_on:
+      - lt-backend
+
+  lt-backend:
+    build:
+      context: ./backend
+    container_name: lt-backend
+    ports:
+      - "8071:8071"
+    networks:
+      - lt-network
+    depends_on:
+      - lt-postgres-db
+
+  lt-postgres-db:
+    image: postgres:latest
+    container_name: lt-postgres-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - lt-network
+
+networks:
+  lt-network:
+    driver: bridge
