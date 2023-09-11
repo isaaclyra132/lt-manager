@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-archived',
@@ -8,37 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class ArchivedComponent implements OnInit {
   archivedTasks: any[] = [];
 
+  constructor(private taskService: TaskService) {}
+
   ngOnInit() {
-    this.archivedTasks = [
-      {
-        id: '1',
-        title: 'Task 1',
-        description: 'Sumário da task 1',
-        status: 'FINALIZADA',
-        updatedAt: '2023-09-08',
+    this.getArchivedTasks();
+  }
+
+  getArchivedTasks() {
+    this.taskService.getArchivedTasks().subscribe({
+      next: (res) => {
+        this.archivedTasks = res;
       },
-      {
-        id: '2',
-        title: 'Task 2',
-        description: 'Sumário da task 2',
-        status: 'EM PROGRESSO',
-        updatedAt: '2023-09-08',
-      },
-      {
-        id: '3',
-        title: 'Task 3',
-        description:
-          'Sumário da task 3AAAAAAAAAAAAA AAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAA',
-        status: 'FINALIZADA',
-        updatedAt: '2023-09-08',
-      },
-      {
-        id: '4',
-        title: 'Task 4',
-        description: 'Sumário da task 4',
-        status: 'NÃO INICIADA',
-        updatedAt: '2023-09-08',
-      },
-    ];
+    });
   }
 }

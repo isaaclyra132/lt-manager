@@ -15,7 +15,15 @@
             [routerLink]="['/tasks']"
           ></button>
         </div>
-        <div class="flex gap-2 flex-wrap w-full justify-content-between mt-3">
+        <div
+          *ngIf="archivedTasks.length == 0"
+          class="mt-4 flex justify-content-center"
+        >
+          <span class="text-2xl md:text-4xl font-bold text-green-500">
+            Nenhuma task arquivada.</span
+          >
+        </div>
+        <div class="flex gap-2 flex-wrap w-full mt-3">
           <div
             class="w-full max-w-400 min-h-200"
             *ngFor="let task of archivedTasks; let i = index"
@@ -29,7 +37,11 @@
                   <div
                     class="text-2xl font-bold text-green-500 flex justify-content-between align-items-center"
                   >
-                    <span>{{ task.title }} </span>
+                    <span
+                      class="text-overflow-clip overflow-hidden"
+                      style="word-wrap: break-word"
+                      >{{ task.title }}
+                    </span>
                   </div>
                   <div class="text-base font-normal text-gray-400">
                     <span>
@@ -38,16 +50,19 @@
                     >
                   </div>
                   <div class="text-base font-normal text-gray-400">
-                    <span>
+                    <span class="flex align-items-center">
                       Status:
-                      {{ task.status | uppercase }}
+                      <p-tag [value]="task.status" severity="danger"></p-tag>
                     </span>
                   </div>
                 </div>
               </div>
               <div #body class="flex flex-1 mt-2 px-4 pb-4 flex-column">
                 <div class="flex flex-1">
-                  <span class="justify text-overflow-clip">
+                  <span
+                    class="text-overflow-clip overflow-hidden"
+                    style="word-wrap: break-word"
+                  >
                     <strong class="text-green-500">Descrição: </strong>
                     {{ task.description }}
                   </span>

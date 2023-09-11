@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TagModule } from 'primeng/tag';
+import { SidebarModule } from 'primeng/sidebar';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
@@ -60,6 +62,8 @@ import { CookieService } from 'ngx-cookie-service';
     SelectButtonModule,
     InputTextareaModule,
     HttpClientModule,
+    TagModule,
+    SidebarModule,
   ],
   providers: [
     MessageService,

@@ -44,23 +44,26 @@ export class LoginComponent implements OnInit {
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
+      this.loading = true;
       this.authService.login(this.loginForm.value).subscribe({
         next: (res) => {
           this.cookieService.set('AUTH-TOKEN', res.token, {
             expires: this.createExpirationDate(),
             secure: true,
           });
-          this.loading = true;
           this.showSuccessLoginToast();
           this.router.navigate(['tasks']);
         },
-        error: (err) => {
+        error: () => {
           this.showFailedLoginToast();
+          this.loading = false;
         },
         complete: () => {
           this.loading = false;
         },
       });
+    } else {
+      this.showFailedLoginToast();
     }
   }
 
@@ -86,6 +89,5 @@ export class LoginComponent implements OnInit {
       detail: 'Bem-vindo ao LT.Manager',
       life: 3000,
     });
-    console.log('deu certo');
   }
 }

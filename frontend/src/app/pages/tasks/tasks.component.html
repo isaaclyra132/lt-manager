@@ -15,7 +15,15 @@
             [routerLink]="['/new-task']"
           ></button>
         </div>
-        <div class="flex gap-2 flex-wrap w-full justify-content-between mt-3">
+        <div
+          *ngIf="userTasks.length == 0"
+          class="mt-4 flex justify-content-center"
+        >
+          <span class="text-2xl md:text-4xl font-bold text-green-500">
+            Nenhuma task cadastrada.</span
+          >
+        </div>
+        <div class="flex gap-2 flex-wrap w-full mt-3">
           <div
             class="w-full max-w-400 min-h-200"
             *ngFor="let task of userTasks; let i = index"
@@ -32,14 +40,18 @@
                     label="Arquivar"
                     icon="pi pi-trash"
                     class="p-button-sm p-button-secondary"
-                    (click)="archiveTask()"
+                    (click)="archiveTask(task)"
                   ></button>
                 </div>
                 <div class="pt-1 px-4 h-full">
                   <div
                     class="text-2xl font-bold text-green-500 flex justify-content-between align-items-center"
                   >
-                    <span>{{ task.title }} </span>
+                    <span
+                      class="text-overflow-clip overflow-hidden"
+                      style="word-wrap: break-word"
+                      >{{ task.title }}
+                    </span>
                   </div>
                   <div class="text-base font-normal text-gray-400">
                     <span>
@@ -48,17 +60,22 @@
                     >
                   </div>
                   <div class="text-base font-normal text-gray-400">
-                    <span>
+                    <span class="flex align-items-center">
                       Status:
-
-                      {{ task.status | uppercase }}
+                      <p-tag
+                        [value]="getStatusName(task.status)"
+                        [severity]="getSeverityByStatus(task.status)"
+                      ></p-tag>
                     </span>
                   </div>
                 </div>
               </div>
               <div #body class="flex flex-1 mt-2 px-4 pb-4 flex-column">
                 <div class="flex flex-1">
-                  <span class="justify text-overflow-clip">
+                  <span
+                    class="max-w-max justify text-overflow-clip overflow-hidden"
+                    style="word-wrap: break-word"
+                  >
                     <strong class="text-green-500">Descrição: </strong>
                     {{ task.description }}
                   </span>
@@ -82,7 +99,7 @@
                     icon="pi pi-check"
                     [disabled]="isFinished(task.status | uppercase)"
                     class="p-button-success p-button-sm"
-                    (click)="finishTask()"
+                    (click)="finishTask(task)"
                   ></button>
                 </div>
               </div>
@@ -133,7 +150,7 @@
   <ng-template pTemplate="content">
     <div class="grid p-fluid font-bold text-green-500">
       <div class="col-12">
-        <label for="title">Título</label>
+        <label for="title">Título*</label>
         <input
           type="text"
           pInputText
@@ -145,20 +162,20 @@
         />
       </div>
       <div class="col-12">
-        <label for="status">Status</label>
+        <label for="status">Status*</label>
         <p-selectButton
           id="status"
           [options]="statusTypes"
           [(ngModel)]="task.status"
           styleClass="mt-2"
           optionLabel="name"
-          optionValue="name"
+          optionValue="value"
           appendTo="body"
           [required]="true"
         ></p-selectButton>
       </div>
       <div class="col-12">
-        <label for="description">Descrição</label>
+        <label for="description">Descrição*</label>
         <textarea
           id="description"
           rows="7"
@@ -167,6 +184,7 @@
           [autoResize]="true"
           [(ngModel)]="task.description"
           appendTo="body"
+          [required]="true"
         ></textarea>
       </div>
     </div>
@@ -178,6 +196,7 @@
         label="Cancelar"
         icon="pi pi-times"
         class="p-button-secondary"
+        [loading]="loading"
         (click)="hideEditTaskDialog()"
       ></button>
       <button
@@ -187,6 +206,8 @@
         label="Atualizar"
         icon="pi pi-check"
         class="p-button-warning"
+        [loading]="loading"
+        (click)="editTask()"
       ></button>
     </div>
   </ng-template>

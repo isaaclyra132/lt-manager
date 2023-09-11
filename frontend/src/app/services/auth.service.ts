@@ -1,8 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,6 +15,7 @@ interface AuthResponse {
 })
 export class AuthService {
   baseApiUrl: string = 'http://localhost:8071/api/lt';
+  // baseApiUrl: string = '/api/lt';  // TODO - FAZER FUNCIONAR O REVERSE PROXY
 
   constructor(
     private httpClient: HttpClient,
@@ -44,6 +41,11 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     return this.cookieService.check('AUTH-TOKEN');
+  }
+
+  logout() {
+    this.cookieService.delete('AUTH-TOKEN');
+    this.router.navigate(['login']);
   }
 
   // Manipulação de erros

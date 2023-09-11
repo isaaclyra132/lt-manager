@@ -62,7 +62,10 @@ export class RegisterComponent implements OnInit {
           this.showSuccessToast();
           this.router.navigate(['/login']);
         },
-        error: (err) => {},
+        error: (err) => {
+          this.showErrorToast();
+          this.loading = false;
+        },
         complete: () => {
           this.loading = false;
         },

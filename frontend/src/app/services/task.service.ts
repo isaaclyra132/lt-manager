@@ -2,19 +2,46 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, catchError, retry, throwError } from 'rxjs';
-import { User } from '../models/User';
+import { Task } from '../models/Task';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class TaskService {
   baseApiUrl: string = 'http://localhost:8071/api/lt';
   // baseApiUrl: string = '/api/lt'; // TODO - FAZER FUNCIONAR O REVERSE PROXY
+
   constructor(private httpClient: HttpClient) {}
 
-  register(registerForm: FormGroup): Observable<User> {
+  getTasks(): Observable<Task[]> {
     return this.httpClient
-      .post<User>(`${this.baseApiUrl}/user`, registerForm)
+      .get<Task[]>(`${this.baseApiUrl}/tasks`, {
+        withCredentials: false,
+      })
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  getArchivedTasks(): Observable<Task[]> {
+    return this.httpClient
+      .get<Task[]>(`${this.baseApiUrl}/tasks/archived`, {
+        withCredentials: false,
+      })
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  createTask(newTask: FormGroup): Observable<Task> {
+    return this.httpClient
+      .post(`${this.baseApiUrl}/task`, newTask, {
+        withCredentials: false,
+      })
+      .pipe(retry(2), catchError(this.handleError));
+  }
+
+  updateTask(taskUpdated: any): Observable<Task> {
+    return this.httpClient
+      .put(`${this.baseApiUrl}/task/${taskUpdated.id}`, taskUpdated, {
+        withCredentials: false,
+      })
       .pipe(retry(2), catchError(this.handleError));
   }
 
