@@ -24,6 +24,7 @@ public class UserService extends AbstractService<User, UserDTO> {
 
     @Override
     public UserDTO saveOrUpdate(UserDTO entityDTO) {
+        log.info("New user created!");
         var preparedUser = prepareUser(entityDTO);
         return super.saveOrUpdate(preparedUser);
     }

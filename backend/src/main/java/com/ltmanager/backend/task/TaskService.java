@@ -36,15 +36,23 @@ public class TaskService extends AbstractService<Task, TaskDTO> {
 
     public TaskDTO saveOrUpdate(TaskDTO taskDTO, Authentication authentication) {
         var preparedTask = prepareTask(taskDTO, authentication);
+        log.info("New task created");
         return super.saveOrUpdate(preparedTask);
     }
 
     @Override
     public TaskDTO saveOrUpdate(TaskDTO taskDTO) {
         var oldTask = repository.findById(taskDTO.getId());
+        if(oldTask.get().getStatus().equals(TaskStatus.FINALIZADA) && taskDTO.getStatus() != TaskStatus.ARQUIVADA) {
+            throw new RuntimeException("Não é possível alterar informações de tasks finalizadas");
+        }
+        else if(oldTask.get().getStatus().equals(TaskStatus.ARQUIVADA)) {
+            throw new RuntimeException("Não é possível alterar informações de tasks arquivadas");
+        }
         taskDTO.setUpdatedAt(LocalDateTime.now());
         taskDTO.setUser(oldTask.orElseThrow().getUser());
         taskDTO.setCreatedAt(oldTask.orElseThrow().getCreatedAt());
+        log.info("Task Updated: {}", taskDTO.getId());
         return super.saveOrUpdate(taskDTO);
     }
 
