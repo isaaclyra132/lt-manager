@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public abstract class AbstractService<E,D> {
 
     protected JpaRepository<E, UUID> repository;
+    private static ModelMapper modelMapper = new ModelMapper();
 
     public AbstractService(JpaRepository<E, UUID> repository) {
         this.repository = repository;
@@ -26,9 +27,8 @@ public abstract class AbstractService<E,D> {
     public abstract String getEntityName();
 
     public Collection<D> all(){
-        var modelMapper = new ModelMapper();
         return repository.findAll().stream()
-                .map(u -> modelMapper.map(u, getDTOClass()))
+                .map(this::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -45,30 +45,34 @@ public abstract class AbstractService<E,D> {
 
     private Page findAllPeageble(Pageable paging) {
         var pageable = repository.findAll(paging);
-        var modelMapper = new ModelMapper();
         List<D> itens = pageable.stream()
                 .peek(System.out::println)
-                .map(u -> modelMapper.map(u, getDTOClass()))
+                .map(this::mapEntityToDTO)
                 .collect(Collectors.toList());
         var actualPage = pageable.getPageable();
         return Page.from(actualPage.getPageNumber(), actualPage.getPageSize(), pageable.getTotalElements(), itens);
     }
 
     public D saveOrUpdate(D entityDTO) {
-        var modelMapper = new ModelMapper();
-        var entity = modelMapper.map(entityDTO, getEntityClass());
+        var entity = mapDTOToEntity(entityDTO);
         var result = repository.save(entity);
-        return modelMapper.map(result, getDTOClass());
+        return mapEntityToDTO(result);
     }
 
     public D findById(UUID id) {
-        var modelMapper = new ModelMapper();
         var result = repository.findById(id).orElseThrow(() -> new NotFoundException(getEntityName(), id));
-        return modelMapper.map(result, getDTOClass());
+        return mapEntityToDTO(result);
     }
 
     public void deleteById(UUID id) {
         repository.deleteById(id);
     }
 
+    public D mapEntityToDTO(E entity) {
+        return modelMapper.map(entity, getDTOClass());
+    }
+
+    public E mapDTOToEntity(D entityDTO) {
+        return modelMapper.map(entityDTO, getEntityClass());
+    }
 }
