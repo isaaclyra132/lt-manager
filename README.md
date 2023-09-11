@@ -2,14 +2,10 @@
 
 <!-- ![Mobile home](/assets/mobile-home.png) -->
 O LT.Manager é um projeto full stack que combina o framework Angular para o frontend, o framework Spring Boot para o backend e o banco de dados PostgreSQL. O objetivo deste projeto é criar uma interface amigável onde você possa gerenciar tarefas, alterando seus estados.
-<center>
-<img  src="assets/mobile-home.png" width="400" height="750">
- <figcaption>Home da versão mobile do sistema</figcaption>
-</center>
-<center>
-<img  src="assets/desktop-home.png" width="1200" height="800">
- <figcaption>Home da versão de desktop do sistema</figcaption>
-</center>
+
+![Mobile home](assets/mobile-home.png)
+
+![Desktop home](assets/desktop-home.png)
 
 ## Stack do projeto
 * Java 17
@@ -47,13 +43,13 @@ Após a inicialização dos conteiners, você pode acessar o aplicativo em http:
 Se você deseja contribuir para este projeto, siga estas etapas:
 
 - Faça um fork do repositório.
-- Crie uma branch para sua contribuição: `git checkout -b minha-contribuicao``.
-- Faça as alterações desejadas e faça commit delas: `git commit -m 'Minha contribuição'``.
-- Faça push para a branch: git push origin minha-contribuicao.
+- Crie uma branch para sua contribuição: `git checkout -b minha-contribuicao`.
+- Faça as alterações desejadas e faça commit delas: `git commit -m 'Minha contribuição'`.
+- Faça push para a branch: `git push origin minha-contribuicao`.
 - Abra um pull request para que suas alterações sejam revisadas.
 
 ## Licença
-Este projeto está licenciado sob a Licença MIT.
+Este projeto está licenciado sob a Licença <a href="https://opensource.org/license/mit/" target="_blank">MIT</a>.
 
 ## Contato
 Se você tiver alguma dúvida ou sugestão relacionada a este projeto, entre em contato:
