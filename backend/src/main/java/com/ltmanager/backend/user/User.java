@@ -1,5 +1,6 @@
 package com.ltmanager.backend.user;
 
+import com.ltmanager.backend.task.Task;
 import com.ltmanager.backend.user.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -27,15 +28,23 @@ public class User implements UserDetails {
 
     @NotBlank
     @Size(max=50)
+    @Column(nullable = false)
     private String email;
 
     @NotBlank
     @Size(max=120)
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String name;
 
+    @OneToMany (mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Task> tasks;
+
+    @Column(nullable = false)
     private Role role;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
