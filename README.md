@@ -33,6 +33,7 @@ O LT.Manager é um projeto full stack que combina o framework Angular para o fro
 ### A fazer
 - [ ] Ordenação das tasks por data de criação
 - [ ] Busca por título da task
+- [ ] Documentação do back com Swagger ou SpringDoc
 - [ ] Filtro de estado no front-end e agrupamento por status
 - [ ] Paginação para melhorar performance da aplicação
 - [ ] Testes unitários de todos os services do back-end (mínimo 60% de cobertura)
