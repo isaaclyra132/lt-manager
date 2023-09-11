@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   currentUser: any;
 
+  sidebarVisible: boolean = false;
+
   constructor(
     private deviceDetectorService: DeviceDetectorService,
     private authService: AuthService
@@ -22,6 +24,10 @@ export class HeaderComponent implements OnInit {
 
   getCurrentUser() {
     this.currentUser = this.authService.getCurrentUser();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   get isMobile() {

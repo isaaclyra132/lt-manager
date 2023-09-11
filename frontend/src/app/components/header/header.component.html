@@ -1,44 +1,95 @@
 <div class="flex justify-content-between align-items-center p-4 text-blue-700">
-  <div>
+  <div class="w-3">
     <a routerLink="/tasks" class="font-bold text-2xl md:text-4xl">
       <span>LT<span class="text-green-400">.</span>Manager </span>
     </a>
   </div>
-  <div class="flex text-green-500 font-bold">
-    <a
-      routerLink="/tasks"
-      class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
-      routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
-      [routerLinkActiveOptions]="{ exact: true }"
-      title="tasks"
-    >
-      <i class="pi pi-check lg:text-xl"></i>
-      <span class="hidden md:inline">Minhas Tasks</span>
-    </a>
-    <a
-      routerLink="/archived"
-      class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
-      routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
-      [routerLinkActiveOptions]="{ exact: true }"
-      title="archived"
-    >
-      <i class="pi pi-trash lg:text-xl"></i>
-      <span class="hidden md:inline">Tasks Arquivadas</span>
-    </a>
-  </div>
-  <div class="flex justify-content-between align-items-center w-3">
-    <div class="flex flex-column">
-      <span class="hidden lg:flex text-green-500 font-bold text-lg">{{
-        currentUser.name | uppercase
-      }}</span>
-      <span class="hidden lg:flex text-gray-500 font-bold text-sm">{{
-        currentUser.sub
-      }}</span>
+  <button
+    pButton
+    pRipple
+    (click)="sidebarVisible = true"
+    icon="pi pi-bars"
+    class="flex md:hidden p-button-success"
+  ></button>
+  <div class="w-9 hidden md:flex justify-content-between">
+    <div class="w-8 flex text-green-500 font-bold">
+      <a
+        routerLink="/tasks"
+        class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
+        routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
+        [routerLinkActiveOptions]="{ exact: true }"
+        title="tasks"
+      >
+        <i class="pi pi-check lg:text-xl"></i>
+        <span class="hidden md:inline">Minhas Tasks</span>
+      </a>
+      <a
+        routerLink="/archived"
+        class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
+        routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
+        [routerLinkActiveOptions]="{ exact: true }"
+        title="archived"
+      >
+        <i class="pi pi-trash lg:text-xl"></i>
+        <span class="hidden md:inline">Tasks Arquivadas</span>
+      </a>
     </div>
-    <!--
+
+    <div class="w-4 flex justify-content-between align-items-center w-3">
+      <div class="flex flex-column">
+        <span class="hidden lg:flex text-green-500 font-bold text-lg">{{
+          currentUser.name | uppercase
+        }}</span>
+        <span class="hidden lg:flex text-gray-500 font-bold text-sm">{{
+          currentUser.sub
+        }}</span>
+      </div>
+
+      <!--
   <button *ngIf="isMobile" class="btn btn-primary d-none d-md-block">
     Meu Botão
   </button> -->
+      <button
+        pButton
+        label="Sair"
+        class="p-button-danger w-12 md:w-4"
+        [routerLink]="['/login']"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="sidebarVisible" position="right">
+  <div class="flex justify-content-between h-full flex-1 flex-column">
+    <div class="flex flex-column">
+      <span class="text-green-500 font-bold text-lg">{{
+        currentUser.name | uppercase
+      }}</span>
+      <span class="text-gray-500 font-bold text-sm">{{ currentUser.sub }}</span>
+      <div class="mt-6 flex flex-column text-green-500 font-bold">
+        <a
+          routerLink="/tasks"
+          class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
+          routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
+          [routerLinkActiveOptions]="{ exact: true }"
+          title="tasks"
+        >
+          <i class="pi pi-check lg:text-xl"></i>
+          <span class="">Minhas Tasks</span>
+        </a>
+        <a
+          routerLink="/archived"
+          class="border-round-md hover:text-white hover:bg-green-800 m-2 p-3 flex gap-2 align-items-center lg:text-lg transition-duration-300"
+          routerLinkActive="text-white bg-green-500 hover:text-white hover:bg-green-500 "
+          [routerLinkActiveOptions]="{ exact: true }"
+          title="archived"
+        >
+          <i class="pi pi-trash lg:text-xl"></i>
+          <span class="">Tasks Arquivadas</span>
+        </a>
+      </div>
+    </div>
+
     <button
       pButton
       label="Sair"
@@ -46,4 +97,4 @@
       [routerLink]="['/login']"
     ></button>
   </div>
-</div>
+</p-sidebar>
