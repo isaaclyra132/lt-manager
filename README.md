@@ -15,6 +15,32 @@ O LT.Manager é um projeto full stack que combina o framework Angular para o fro
 * PrimeNG 16.3
 * PostgreSQL
 
+## Funcionalidades e coisas a fazer
+
+### Desenvolvidas
+- [x] Registro de novos usuários
+- [x] Autenticação e Autorização via JWT
+- [x] Visualizar tasks cadastradas
+- [x] Cadastrar nova task
+- [x] Validação dos campos de cadastro de nova task
+- [x] Atualizar task
+- [x] Visualizar tasks arquivadas em página separada
+- [x] Badge de status para as tasks
+- [x] Hamburguer menu para dispositivos mobile
+- [x] Responsividade para dispositivos mobile
+- [x] Dockerfile do back e front e docker compose
+
+### A fazer
+- [ ] Ordenação das tasks por data de criação
+- [ ] Busca por título da task
+- [ ] Filtro de estado no front-end e agrupamento por status
+- [ ] Paginação para melhorar performance da aplicação
+- [ ] Testes unitários de todos os services do back-end (mínimo 60% de cobertura)
+- [ ] Melhorar responsividade para dispositivos de tela mediana  (Tablets e afins)
+- [ ] Melhorar segurança da aplicação
+- [ ] Conseguir implementar reverse proxy com o Nginx
+- [ ] Deploy na nuvem
+
 ## Pré-requisitos
 * Docker
 
