@@ -8,8 +8,7 @@ import { User } from '../models/User';
   providedIn: 'root',
 })
 export class UserService {
-  baseApiUrl: string = 'http://localhost:8071/api/lt';
-  // baseApiUrl: string = '/api/lt'; // TODO - FAZER FUNCIONAR O REVERSE PROXY
+  baseApiUrl: string = '/api/lt';
   constructor(private httpClient: HttpClient) {}
 
   register(registerForm: FormGroup): Observable<User> {

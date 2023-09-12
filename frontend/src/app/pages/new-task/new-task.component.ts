@@ -52,6 +52,8 @@ export class NewTaskComponent implements OnInit {
           this.loading = false;
         },
       });
+    } else {
+      this.showFailedNewTaskToast();
     }
   }
 

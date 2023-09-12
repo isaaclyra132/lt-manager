@@ -29,6 +29,7 @@ O LT.Manager é um projeto full stack que combina o framework Angular para o fro
 - [x] Hamburguer menu para dispositivos mobile
 - [x] Responsividade para dispositivos mobile
 - [x] Dockerfile do back e front e docker compose
+- [x] Conseguir implementar reverse proxy com o Nginx
 
 ### A fazer
 - [ ] Ordenação das tasks por data de criação
@@ -39,7 +40,6 @@ O LT.Manager é um projeto full stack que combina o framework Angular para o fro
 - [ ] Testes unitários de todos os services do back-end (mínimo 60% de cobertura)
 - [ ] Melhorar responsividade para dispositivos de tela mediana  (Tablets e afins)
 - [ ] Melhorar segurança da aplicação
-- [ ] Conseguir implementar reverse proxy com o Nginx
 - [ ] Deploy na nuvem
 
 ## Pré-requisitos
@@ -62,7 +62,7 @@ cd lt-manager
 docker compose up --build
 ``````
 ## Uso
-Após a inicialização dos conteiners, você pode acessar o aplicativo em http://localhost/lt-manager. Certifique-se de ter o backend em execução antes de usar o aplicativo.
+Após a inicialização dos conteiners, você pode acessar o aplicativo em http://lt-manager.localhost/. Certifique-se de ter o backend em execução antes de usar o aplicativo.
 
 > Ao rodar pela primeira vez será necessário cadastrar uma nova conta na página de cadastro.
 

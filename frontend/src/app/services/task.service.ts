@@ -8,8 +8,7 @@ import { Task } from '../models/Task';
   providedIn: 'root',
 })
 export class TaskService {
-  baseApiUrl: string = 'http://localhost:8071/api/lt';
-  // baseApiUrl: string = '/api/lt'; // TODO - FAZER FUNCIONAR O REVERSE PROXY
+  baseApiUrl: string = '/api/lt';
 
   constructor(private httpClient: HttpClient) {}
 

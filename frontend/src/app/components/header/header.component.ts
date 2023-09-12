@@ -13,10 +13,7 @@ export class HeaderComponent implements OnInit {
 
   sidebarVisible: boolean = false;
 
-  constructor(
-    private deviceDetectorService: DeviceDetectorService,
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -28,9 +25,5 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-  }
-
-  get isMobile() {
-    return this.deviceDetectorService.isMobile();
   }
 }

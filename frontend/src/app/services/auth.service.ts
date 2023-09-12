@@ -14,8 +14,7 @@ interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  baseApiUrl: string = 'http://localhost:8071/api/lt';
-  // baseApiUrl: string = '/api/lt';  // TODO - FAZER FUNCIONAR O REVERSE PROXY
+  baseApiUrl: string = '/api/lt';
 
   constructor(
     private httpClient: HttpClient,
